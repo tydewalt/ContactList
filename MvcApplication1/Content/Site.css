@@ -1,0 +1,118 @@
+﻿html {
+    background-color:  #CCCCA3;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    
+}
+body2 {
+    background-color: #CCCCA3;
+}
+
+body {
+     margin: 0px; 
+     padding: 0px; 
+     font-family: 'Arial',verdana;
+}
+
+#jsDisabled {
+    float: right;
+    clear: both;
+    background-color: red;
+    width: 100%;
+    text-align: center;
+    font-weight: bolder;
+    color: white;
+    height: 20px;
+}
+
+#changes-bottom {
+    position: fixed; 
+    bottom: 0;
+}
+
+#mainTable {
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    border-color: black;   
+    border-spacing: 0;
+    border-collapse:collapse;  
+    border-width: 0;  
+}
+
+
+table 
+{
+     empty-cells: show; 
+}
+
+#inside-content {
+    float: right;
+
+}
+
+#header {
+    background-color: #330000;
+    text-align: center;
+    color: white;
+    height: 100px;
+}
+
+#leftColumn {
+    width: 8%;
+    background-color: #B20000;
+    vertical-align: top;
+    padding: 10px;
+}
+
+#bodyTable {
+    background-color: #CCCCA3;
+    width: 80%;
+    padding: 10px;
+    vertical-align: top;
+}
+
+/* Sortable tables */
+table.sortable thead {
+    background-color: #990000;
+    color:#FFFFFF;
+    font-weight: bold;
+    cursor: default;
+    text-decoration: underline;
+    font-size: 17px;
+}
+table.sortable {
+    font-size: 17px;
+    font-weight: normal;
+}
+
+.float-right {
+    float: right;
+   
+
+}
+
+  #login a {
+        background-color: #d3dce0;
+        margin-left: 10px;
+        margin-right: 3px;
+        padding: 2px 3px;
+        text-decoration: none;
+    }
+
+
+
+ .field-validation-error
+{
+    color: red;
+}
+
+.validation-summary-errors 
+{
+    color: red;
+}
+input.input-validation-error 
+{
+    background-color: orange;
+}

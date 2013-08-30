@@ -1,0 +1,304 @@
+﻿@model MvcApplication1.Models.Employee
+
+@{
+    ViewBag.Title = "Edit Employee";
+    Layout = null;
+}
+
+<head>
+    <title>Edit Record</title>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.8.20.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+    <script type="text/javascript" src="js/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Content/Site.css">
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {                                     //jQuery snippet popup for all CRUD 
+                                                                            //... actions.
+            $.ajaxSetup({ cache: false });
+
+            $("#openDialog").live("click", function (e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+
+                $("#dialog-edit").dialog({
+                    title: 'Add Employee',
+                    autoOpen: false,
+                    resizable: false,
+                    height: 450,
+                    width: 450,
+                    show: { effect: 'drop', direction: "up" },
+                    modal: true,
+                    draggable: true,
+                    open: function (event, ui) {
+                        $(this).load(url);
+                    },
+                    close: function (event, ui) {
+                        $(this).dialog('close');
+                    }
+                });
+
+                $("#dialog-edit").dialog('open');
+                return false;
+            });
+
+            $(".editDialog").live("click", function (e) {
+                var url = $(this).attr('href');
+                $("#dialog-edit").dialog({
+                    title: 'Edit Employee',
+                    autoOpen: false,
+                    resizable: false,
+                    height: 455,
+                    width: 450,
+                    show: { effect: 'drop', direction: "up" },
+                    modal: true,
+                    draggable: true,
+                    open: function (event, ui) {
+                        $(this).load(url);
+
+                    },
+                    close: function (event, ui) {
+                        $(this).dialog('close');
+                    }
+                });
+
+                $("#dialog-edit").dialog('open');
+                return false;
+            });
+
+            $(".confirmDialog").live("click", function (e) {
+
+                var url = $(this).attr('href');
+                $("#dialog-confirm").dialog({
+                    autoOpen: false,
+                    resizable: false,
+                    height: 170,
+                    width: 350,
+                    show: { effect: 'drop', direction: "up" },
+                    modal: true,
+                    draggable: true,
+                    buttons: {
+                        "OK": function () {
+                            $(this).dialog("close");
+                            window.location = url;
+
+                        },
+                        "Cancel": function () {
+                            $(this).dialog("close");
+
+                        }
+                    }
+                });
+                $("#dialog-confirm").dialog('open');
+                return false;
+            });
+
+            $(".viewDialog").live("click", function (e) {
+                var url = $(this).attr('href');
+                $("#dialog-view").dialog({
+                    title: 'View Employee',
+                    autoOpen: false,
+                    resizable: false,
+                    height: 755,
+                    width: 400,
+                    show: { effect: 'drop', direction: "up" },
+                    modal: true,
+                    draggable: true,
+                    open: function (event, ui) {
+                        $(this).load(url);
+
+                    },
+                    buttons: {
+                        "Close": function () {
+                            $(this).dialog("close");
+
+                        }
+                    },
+                    close: function (event, ui) {
+                        $(this).dialog('close');
+                    }
+                });
+
+                $("#dialog-view").dialog('open');
+                return false;
+            });
+
+            $("#btncancel").live("click", function (e) {
+                $("#dialog-edit").dialog('close');
+
+            });
+        });
+    </script>
+</head>
+<body>
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset id="body2">
+        <legend>Employee</legend>
+        <table>
+        @Html.HiddenFor(model => model.ID)
+
+         <tr>
+
+         <tr>
+
+                    <td>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.FirstName)*
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.FirstName)
+                            @Html.ValidationMessageFor(model => model.FirstName)
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.LastName)*
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.LastName)
+                            @Html.ValidationMessageFor(model => model.LastName)
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Location)*
+                        </div>
+                        <div class="editor-field">
+             @Html.DropDownList("Location", new List<SelectListItem> {              //Popuplates dropdown list
+                new SelectListItem{ Text = "BCC", Value = "BCC" },                  //...with location values.
+                new SelectListItem{ Text = "CO", Value = "CO" },                    //(improvement needed, for 
+                new SelectListItem{ Text = "DDC", Value = "DDC" },                  //easier addition of new 
+                new SelectListItem{ Text = "GEC", Value = "GEC" },                  //dropdownlist items.
+                new SelectListItem{ Text = "NLC", Value = "NLC" },
+                new SelectListItem{ Text = "PHC", Value = "PHC" },
+                }, "Select..")
+                            @Html.ValidationMessageFor(model => model.Location)
+
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Department)
+                        </div>
+                        <div class="editor-field">
+          @Html.DropDownList("Department", new List<SelectListItem> {                  //Populates dropdown list              
+              new SelectListItem { Text = "Administration", Value = "Administration" },//...with department values
+              new SelectListItem { Text = "Cage", Value = "Cage" },                    //(improvement needed, for 
+              new SelectListItem { Text = "Communications", Value = "Communications" },//easier addition of new 
+              new SelectListItem { Text = "Facilities", Value = "Facilities" },        //dropdownlist items.
+              new SelectListItem { Text = "Food & Beverage", Value = "Food & Beverage" },
+              new SelectListItem { Text = "Guest Services", Value = "Guest Services" },
+              new SelectListItem { Text = "Human Resources", Value = "Human Resources" },
+              new SelectListItem { Text = "IT", Value = "IT" },
+              new SelectListItem { Text = "Legal", Value = "Legal" },
+              new SelectListItem { Text = "Live Games", Value = "Live Games" },
+              new SelectListItem { Text = "Marketing", Value = "Marketing" },
+              new SelectListItem { Text = "Operations", Value = "Operations" },
+              new SelectListItem { Text = "Payroll", Value = "Payroll" },
+              new SelectListItem { Text = "Procurement", Value = "Procurement" },
+              new SelectListItem { Text = "Security", Value = "Security" },
+              new SelectListItem { Text = "Slots", Value = "Slots" },
+              new SelectListItem { Text = "Solutions Group", Value = "Solutions Group" },
+              new SelectListItem { Text = "Surveillance", Value = "Surveillance" },
+              }, "Select..")
+
+                            @Html.ValidationMessageFor(model => model.Department)
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Phone)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.Phone)
+                            @Html.ValidationMessageFor(model => model.Phone)
+                        </div>
+                    </td>
+
+
+                    <td>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Cell)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.Cell)
+                            @Html.ValidationMessageFor(model => model.Cell)
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Fax)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.Fax)
+                            @Html.ValidationMessageFor(model => model.Fax)
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Room)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.Room)
+                            @Html.ValidationMessageFor(model => model.Room)
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="editor-label">
+                            @Html.LabelFor(model => model.Extension)
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.Extension)
+                            @Html.ValidationMessageFor(model => model.Extension)
+                        </div>
+                    </td>
+                </tr>
+                <div class="editor-field" style="display: none">                <!-- DateAdded field is hidden -->
+                    @Html.TextBoxFor(model => model.DateAdded)                   <!-- ..and no changeable by user -->
+                    @Html.ValidationMessageFor(model => model.Extension)
+
+                </div>
+      
+            </table>
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+        <p>
+         
+    <p>
+        @Html.ActionLink("DeleteRecord", "DeleteRecord", "Employees", new { id=Model.ID }, new { @class = "confirmDialog" })
+   
+      
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+    </body>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

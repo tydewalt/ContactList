@@ -1,0 +1,338 @@
+﻿@model IEnumerable<MvcApplication1.Models.Employee>
+
+@{
+    ViewBag.Title = "Contact List";
+    Layout = null;
+}
+<head>
+   <title>Contact List</title>
+    <script src="../scripts/sorttable.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="../Scripts/jquery-1.3.2.min.js" type='text/javascript'></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.8.20.min.js")" type="text/javascript"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="Content/jquery.datepick.css"> 
+    <script type="text/javascript" src="Scripts/jquery.datepick.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Content/Site.css">
+
+     <meta charset="utf-8" />
+
+    <script>
+
+        function isNumberKey(evt) {
+            var keyEntry = (evt.which) ? evt.which : event.keyCode         //Allows only letters from user input
+            if (((keyEntry >= '65') && (keyEntry <= '90')) || ((keyEntry >= '97') && (keyEntry <=
+   '122')) || (keyEntry == '8'))  
+                return true;
+            return false;
+        }
+
+       function checkJavaScriptValidity() {                                //Checks if JavaScript is enabled
+           document.getElementById("jsDisabled").style.display = 'none';   //hides message if it is enabled
+       }
+
+        function showText(obj) {                                            //Used to hide/show 'End Date'
+            if (obj.value == 'betweenDates') {                              //...text box when 'BetweenDates'
+                document.getElementById('endDate').style.display = 'block'; //... radiobutton is selected.
+                document.getElementById('endDateLabel').style.display = 'block';
+                
+            }
+            else  {
+                document.getElementById('endDate').style.display = 'none';
+                document.getElementById('endDateLabel').style.display = 'none';
+            
+            }
+            return;
+        }                         
+
+
+        $(function () {                                                     //Datepick snippet for picking dates
+            $('#datepick').datepick();                                      //..from a css decorated popup.
+        });                                                 
+        $(function () {
+            $('#endDate').datepick();
+        });
+
+
+            $(document).ready(function () {                                 //jQuery Popup snipet for all CRUD
+                                                                            //...Actions.
+                $.ajaxSetup({ cache: false });
+
+                $("#openDialog").live("click", function (e) {
+                    e.preventDefault();
+                    var url = $(this).attr('href');
+
+                    $("#dialog-edit").dialog({
+                        title: 'Add Employee',
+                        autoOpen: false,
+                        resizable: false,
+                        height: 450,
+                        width: 450,
+                        show: { effect: 'drop', direction: "up" },
+                        modal: true,
+                        draggable: false,
+                        open: function (event, ui) {
+                            $(this).load(url);
+                        },
+                        close: function (event, ui) {
+                            $(this).dialog('close');
+                        }
+                    });
+
+                    $("#dialog-edit").dialog('open');
+                    return false;
+                });
+
+                $(".deleteDialog").live("click", function (e) {
+                    var url = $(this).attr('href');
+                    $("#dialog-delete").dialog({
+                        title: 'Delete Employee',
+                        autoOpen: false,
+                        resizable: false,
+                        height: 455,
+                        width: 450,
+                        show: { effect: 'drop', direction: "up" },
+                        modal: true,
+                        draggable: false,
+                        open: function (event, ui) {
+                            $(this).load(url);
+
+                        },
+                        close: function (event, ui) {
+                            $(this).dialog('close');
+                        }
+                    });
+
+                    $("#dialog-delete").dialog('open');
+                    return false;
+                });
+
+
+                $(".editDialog").live("click", function (e) {
+                    var url = $(this).attr('href');
+                    $("#dialog-edit").dialog({
+                        title: 'Edit Employee',
+                        autoOpen: false,
+                        resizable: false,
+                        height: 475,
+                        width: 450,
+                        show: { effect: 'drop', direction: "up" },
+                        modal: true,
+                        draggable: false,
+                        open: function (event, ui) {
+                            $(this).load(url);
+
+                        },
+                        close: function (event, ui) {
+                            $(this).dialog('close');
+                        }
+                    });
+
+                    $("#dialog-edit").dialog('open');
+                    return false;
+                });
+
+                $(".confirmDialog").live("click", function (e) {
+
+                    var url = $(this).attr('href');
+                    $("#dialog-confirm").dialog({
+                        autoOpen: false,
+                        resizable: false,
+                        height: 170,
+                        width: 350,
+                        show: { effect: 'drop', direction: "up" },
+                        modal: true,
+                        draggable: false,
+                        buttons: {
+                            "OK": function () {
+                                $(this).dialog("close");
+                                window.location = url;
+
+                            },
+                            "Cancel": function () {
+                                $(this).dialog("close");
+
+                            }
+                        }
+                    });
+                    $("#dialog-confirm").dialog('open');
+                    return false;
+                });
+
+                $(".viewDialog").live("click", function (e) {
+                    var url = $(this).attr('href');
+                    $("#dialog-view").dialog({
+                        title: 'View Employee',
+                        autoOpen: false,
+                        resizable: false,
+                        height: 755,
+                        width: 400,
+                        show: { effect: 'drop', direction: "up" },
+                        modal: true,
+                        draggable: false,
+                        open: function (event, ui) {
+                            $(this).load(url);
+
+                        },
+                        buttons: {
+                            "Close": function () {
+                                $(this).dialog("close");
+
+                            }
+                        },
+                        close: function (event, ui) {
+                            $(this).dialog('close');
+                        }
+                    });
+
+                    $("#dialog-view").dialog('open');
+                    return false;
+                });
+
+                $("#btncancel").live("click", function (e) {
+                    $("#dialog-edit").dialog('close');
+
+                });
+            });             
+    </script>
+</head>
+
+<!--  @@-------------------@@ Comments are off to the right of the code @@--------------------------------@@ -->
+
+<body onload="checkJavaScriptValidity()">
+     
+         <div id="jsDisabled">
+
+This web application runs best with JavaScript enabled.
+</div>
+    <table id="mainTable">
+        <tr>
+
+<!-- ============ HEADER SECTION ============== -->
+           <td id="header" colspan="2"><h1>Contact List</h1></td></tr>
+       
+        <tr>
+           
+
+<!-- ============ LEFT COLUMN (SEARCH AREA) ============== -->
+            <td id="leftColumn">
+                <h3>Search</h3>
+    
+                @using (Html.BeginForm())
+                {    
+                    <p>
+                        First Name: @Html.TextBox("SearchStringFirst", null, new { onkeypress = "return isNumberKey(event)" } )<br /> <!-- Generates Textbox for first name search -->
+                        Last Name: @Html.TextBox("SearchStringLast", null, new { onkeypress = "return isNumberKey(event)" } )<br />   <!-- Generates Textbox for last name search -->
+                        Location: <br/>@Html.DropDownList("employeeLocation", "All")<br/>                                             <!-- Generates Dropdownlist box for Locations -->
+                        Department:<br/> @Html.DropDownList("employeeDepartment", "All")<br/> <br/>                                   <!-- Generates Dropdownlist box for Departments-->
+                        <br /><br /><br />                                                                                      
+                                                                                                                     
+                        @Html.RadioButton("searchDate", "onDate", true, new { @onclick="showText(this)" }) On <br />                  <!-- Radio button generation for date search-->
+                        @Html.RadioButton("searchDate", "beforeDate", new { @onclick="showText(this)" }) Before <br />
+                        @Html.RadioButton("searchDate", "afterDate", new { @onclick="showText(this)" }) After <br />
+                        @Html.RadioButton("searchDate", "betweenDates", new { @onclick="showText(this)" }) Between <br />
+                         
+                        Start Date: @Html.TextBox("datepick", "", null, new { @readonly = "true"})<br />
+                       
+                        End Date: @Html.TextBox("endDate", "", null, new { @readonly = "true", @style="display:none", @runat = "server" }) <br />        <!-- This text box is hidden until BetweenDates radio
+                                                                                                                                                button is checked.-->
+                            <input type="submit" value="Filter" />                                                                                 
+                      </p> 
+                }
+                <FORM ACTION="/employees">
+                    <INPUT TYPE="submit" VALUE="Clear Fields">
+                </FORM>
+            <p>
+               @Html.ActionLink("Create New", "Create", "Employees", null, new { @id = "openDialog" })                          <!-- Popups a new 'create' windows or takes you to a 
+            </p>                                                                                                                    full page view if javascript is off -->
+<!-- ============ RIGHT COLUMN (CONTENT) ============== -->
+<td id="bodyTable">                               
+<table class="sortable" border="1">                     <!-- Drawn Table with database data -->                   
+    <tr>                                                   
+         <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Department)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cell)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Room)
+        </th>
+        <th>
+            Extension
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateAdded)
+        </th>
+        <th>Edit</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Department)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cell)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fax)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Room)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Extension)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateAdded)
+        </td>
+        <td>
+              @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "editDialog" })                           <!-- Popups a new 'create' windows or takes you to a 
+        </td>                                                                                                                      full page view if javascript is disabled -->                                 
+            
+    </tr>
+}
+
+</table>                                        
+    <div id="dialog-confirm" style="display: none">                                 <!-- Confirm Deletion div (hidden until activated through JavaScript -->
+        <p>
+            <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+            Are you sure you want to delete ?
+        </p>
+    </div>
+    <div id="dialog-edit" style="display: none">
+    </div>
+    <div id="dialog-view" style="display: none">
+    </div>             
+</table>
+
+    </body>

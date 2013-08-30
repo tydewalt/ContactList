@@ -1,0 +1,94 @@
+﻿@model MvcApplication1.Models.Employee
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = null;
+}
+<head>
+        <link rel="stylesheet" type="text/css" href="/Content/Site.css">
+    <title>Delete record?</title>
+
+</head>
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this record?</h3>
+<fieldset>
+    <table>
+    <legend>Employee</legend>
+<tr>
+    <td>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FirstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FirstName)
+    </div>
+        </td>
+    <td>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LastName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LastName)
+    </div></td></tr>
+
+<tr>
+    <td>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Location)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Location)
+    </div></td>
+    <td>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Department)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Department)
+    </div></td>
+    </tr>
+<tr><td>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Phone)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Phone)
+    </div></td>
+    <td>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Cell)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Cell)
+    </div></td></tr>
+<tr><td>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Fax)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Fax)
+    </div></td>
+    <td>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Room)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Room)
+    </div></td></tr>
+        <tr><td>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Extension)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Extension)
+    </div></td></tr>
+        </table>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

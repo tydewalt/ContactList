@@ -1,0 +1,222 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+    <title></title>
+    <script src="../scripts/sorttable.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.8.20.min.js")" type="text/javascript"></script>
+
+
+    <script type="text/javascript" src="js/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="Content/jquery.datepick.css"> 
+<script type="text/javascript" src="Scripts/jquery.datepick.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Content/Site.css">
+
+     <meta charset="utf-8" />
+
+    <script>
+        function showText(obj) {
+            if (obj.value == 'betweenDates') {
+                document.getElementById('endDate').style.display = 'block';
+                document.getElementById('endDateLabel').style.display = 'block';
+
+            }
+            else {
+                document.getElementById('endDate').style.display = 'none';
+                document.getElementById('endDateLabel').style.display = 'none';
+
+            }
+            return;
+        }                           //Hide/Show End date textbox JavaScript
+
+
+        $(function () {
+            $('#datepick').datepick();
+        });                                                 //Datepick jQuery Snippet
+        $(function () {
+            $('#endDate').datepick();
+        });
+
+
+        $(document).ready(function () {
+
+            $.ajaxSetup({ cache: false });
+
+            $("#openDialog").live("click", function (e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+
+                $("#dialog-edit").dialog({
+                    title: 'Add Employee',
+                    autoOpen: false,
+                    resizable: false,
+                    height: 450,
+                    width: 450,
+                    show: { effect: 'drop', direction: "up" },
+                    modal: true,
+                    draggable: false,
+                    open: function (event, ui) {
+                        $(this).load(url);
+                    },
+                    close: function (event, ui) {
+                        $(this).dialog('close');
+                    }
+                });
+
+                $("#dialog-edit").dialog('open');
+                return false;
+            });
+
+            $(".deleteDialog").live("click", function (e) {
+                var url = $(this).attr('href');
+                $("#dialog-delete").dialog({
+                    title: 'Delete Employee',
+                    autoOpen: false,
+                    resizable: false,
+                    height: 455,
+                    width: 450,
+                    show: { effect: 'drop', direction: "up" },
+                    modal: true,
+                    draggable: false,
+                    open: function (event, ui) {
+                        $(this).load(url);
+
+                    },
+                    close: function (event, ui) {
+                        $(this).dialog('close');
+                    }
+                });
+
+                $("#dialog-delete").dialog('open');
+                return false;
+            });
+
+
+            $(".editDialog").live("click", function (e) {
+                var url = $(this).attr('href');
+                $("#dialog-edit").dialog({
+                    title: 'Edit Employee',
+                    autoOpen: false,
+                    resizable: false,
+                    height: 475,
+                    width: 450,
+                    show: { effect: 'drop', direction: "up" },
+                    modal: true,
+                    draggable: false,
+                    open: function (event, ui) {
+                        $(this).load(url);
+
+                    },
+                    close: function (event, ui) {
+                        $(this).dialog('close');
+                    }
+                });
+
+                $("#dialog-edit").dialog('open');
+                return false;
+            });
+
+            $(".confirmDialog").live("click", function (e) {
+
+                var url = $(this).attr('href');
+                $("#dialog-confirm").dialog({
+                    autoOpen: false,
+                    resizable: false,
+                    height: 170,
+                    width: 350,
+                    show: { effect: 'drop', direction: "up" },
+                    modal: true,
+                    draggable: false,
+                    buttons: {
+                        "OK": function () {
+                            $(this).dialog("close");
+                            window.location = url;
+
+                        },
+                        "Cancel": function () {
+                            $(this).dialog("close");
+
+                        }
+                    }
+                });
+                $("#dialog-confirm").dialog('open');
+                return false;
+            });
+
+            $(".viewDialog").live("click", function (e) {
+                var url = $(this).attr('href');
+                $("#dialog-view").dialog({
+                    title: 'View Employee',
+                    autoOpen: false,
+                    resizable: false,
+                    height: 755,
+                    width: 400,
+                    show: { effect: 'drop', direction: "up" },
+                    modal: true,
+                    draggable: false,
+                    open: function (event, ui) {
+                        $(this).load(url);
+
+                    },
+                    buttons: {
+                        "Close": function () {
+                            $(this).dialog("close");
+
+                        }
+                    },
+                    close: function (event, ui) {
+                        $(this).dialog('close');
+                    }
+                });
+
+                $("#dialog-view").dialog('open');
+                return false;
+            });
+
+            $("#btncancel").live("click", function (e) {
+                $("#dialog-edit").dialog('close');
+
+            });
+        });              //popup jQuery snippet
+    </script>
+</head>
+
+    <header>
+        <div class="float-right">
+                    <section id="login">
+                        @Html.Partial("_LoginPartial")
+                    </section>
+                </div>
+    </header>
+<body style="margin: 0px; padding: 0px; font-family: 'Trebuchet MS',verdana;">
+
+<table width="100%" style="height: 100%;" cellpadding="10" cellspacing="0" border="0">
+<tr>
+
+<!-- ============ HEADER SECTION ============== -->
+<td colspan="2" style="height: 100px;" bgcolor="#660000"><h1>SIGA Contact List</h1></td></tr>
+
+<tr>
+<!-- ============ LEFT COLUMN (MENU) ============== -->
+<td width="15%" valign="top" bgcolor="#B20000">
+
+
+</td>
+    
+
+<!-- ============ RIGHT COLUMN (CONTENT) ============== -->
+<td width="80%" valign="top" bgcolor="#CCCCA3">
+<div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+</body>
+
+</html>
+
