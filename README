@@ -1,1 +1,18 @@
 I R TEH SPECIALZ.
+
+
+My code is in the following files:
+
+~/Content/Site.css
+~/Controllers/EmployeesController.cs
+~/Models/Employees.cs
+~/Views/Employees/*.cshtml
+
+~/App_data/Movies.mdf
+
+
+
+First projet with ASP.NET MVC4. Almost all self taught.
+Code is FAR from elegant.
+
+Comments welcome. Improvements as well.
